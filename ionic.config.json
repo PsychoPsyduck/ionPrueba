@@ -1,0 +1,8 @@
+{
+  "name": "ionPrueba",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color='danger'>
+    <ion-title text-center>Ingreso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content class="fondo ">
+  <br >
+  <ion-toolbar class="form" color="dark">
+    <br>
+    <form [formGroup]="form" >
+      <ion-item class="full-width-input">
+        <ion-label position='floating' color="light">Correo</ion-label>
+        <ion-input type="text" formControlName="mail"  color="light"></ion-input> 
+      </ion-item>
+      <br>
+      <ion-item class="full-width-input">
+        <ion-label position='floating' color="light">Contraseña</ion-label>
+        <ion-input type="password" formControlName="clave"  color="light"></ion-input> 
+      </ion-item>
+      <br>
+      <ion-button [hidden]="ocultarVerificar"  color='danger' *ngIf="logeando"  (click)="Entrar()">Entrar</ion-button>
+      <ion-button [hidden]="!ocultarVerificar" color="danger" *ngIf="logeando"  (click)="Entrar()"><i class="fa fa-spinner fa-spin"></i> Ingresando</ion-button>
+      
+    </form>
+  </ion-toolbar>
+
+  <ion-item-divider></ion-item-divider>
+
+  <br>
+  <ion-toolbar class="entrar"  color="dark">
+    <br>
+    <ion-button color="danger" *ngIf="logeando"  (click)="AutoLog('admin')"> Ingresar como Admin</ion-button>
+    <br><br>
+    <ion-button color="danger" *ngIf="logeando"  (click)="AutoLog('invitado')">Ingresar como Invitado</ion-button>
+    <br><br>
+    <ion-button color="danger" *ngIf="logeando"  (click)="AutoLog('usuario')">Ingresar como Usuario</ion-button>
+    <br><br>
+    <ion-button color="danger" *ngIf="logeando"  (click)="AutoLog('anonimo')">Ingresar como Anonimo</ion-button>
+    <br><br>
+    <ion-button color="danger" *ngIf="logeando"  (click)="AutoLog('tester')">Ingresar como Tester</ion-button>
+  </ion-toolbar>
+</ion-content>
