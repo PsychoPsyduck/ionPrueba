@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from '../services/auth-service.service';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -18,27 +18,66 @@ export class LoginPage implements OnInit {
   logeando=true;
   ocultarVerificar: boolean;
 
-  constructor(private fb: FormBuilder, private authService: AuthServiceService, public router: Router, public alertController: AlertController) { }
+  constructor(private fb: FormBuilder, private authService: AuthServiceService, public router: Router, public alertController: AlertController, private loadingController: LoadingController) { }
+
+
+  get email() {
+		return this.form.get('email');
+	}
+
+  get password() {
+		return this.form.get('password');
+	}
 
   ngOnInit() {
     this.form = this.fb.group({
-      mail: ['', Validators.required],
-      clave: ['', Validators.required]
+      email: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 
-  Entrar(){
-    const { mail, clave } = this.form.value;
+  async register() {
+		const loading = await this.loadingController.create();
+		await loading.present();
 
-    this.authService.login(mail, clave).then( res => {
-      this.router.navigate(['/home']);
-    }).catch(err => this.presentAlert(err));
-  }
+		const user = await this.authService.register(this.form.value);
+		await loading.dismiss();
+
+		if (user) {
+      this.presentAlert('VAMO BOKEE');
+			// this.router.navigateByUrl('/home', { replaceUrl: true });
+		} else {
+			this.presentAlert('Registration failed'); //, 'Please try again!'
+		}
+	}
+
+  async login() {
+		const loading = await this.loadingController.create();
+		await loading.present();
+
+		const user = await this.authService.login(this.form.value);
+		await loading.dismiss();
+
+		if (user) {
+      this.presentAlert('VAMO BOKEE');
+			// this.router.navigateByUrl('/home', { replaceUrl: true });
+		} else {
+			this.presentAlert('Login failed'); //, 'Please try again!'
+		}
+	}
+
+  // Entrar(){
+  //   const { mail, clave } = this.form.value;
+
+  //   this.authService.login(mail, clave).then( res => {
+  //     this.router.navigate(['/home']);
+  //   }).catch(err => this.presentAlert(err));
+  // }
 
   Limpiar(){
     this.form.setValue({
-      mail: "",
-      clave: ""
+      email: "",
+      password: ""
     });
   }
 
@@ -55,8 +94,8 @@ export class LoginPage implements OnInit {
 
   Invitado() {
     this.form.setValue({
-      mail: "admin@mail.com",
-      clave: "adminmail"
+      email: "admin@mail.com",
+      password: "adminmail"
     });
   }
 
@@ -64,32 +103,32 @@ export class LoginPage implements OnInit {
     switch (usuario) {
       case "admin" :
         this.form.setValue({
-          mail: "admin@admin.com",
-          clave: "111111"
+          email: "admin@admin.com",
+          password: "111111"
         });
         break;
       case "invitado" :
         this.form.setValue({
-          mail: "invitado@invitado.com",
-          clave: "222222"
+          email: "invitado@invitado.com",
+          password: "222222"
         });
         break;
       case "usuario" :
         this.form.setValue({
-          mail: "usuario@usuario.com",
-          clave: "333333"
+          email: "usuario@usuario.com",
+          password: "333333"
         });
         break;
       case "anonimo" :
         this.form.setValue({
-          mail: "anonimo@anonimo.com",
-          clave: "444444"
+          email: "anonimo@anonimo.com",
+          password: "444444"
         });
         break;
       case "tester" :
         this.form.setValue({
-          mail: "tester@tester.com",
-          clave: "555555"
+          email: "tester@tester.com",
+          password: "555555"
         });
         break;
       

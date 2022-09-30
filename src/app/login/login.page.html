@@ -13,16 +13,16 @@
     <form [formGroup]="form" >
       <ion-item class="full-width-input">
         <ion-label position='floating' color="light">Correo</ion-label>
-        <ion-input type="text" formControlName="mail"  color="light"></ion-input> 
+        <ion-input type="text" formControlName="email"  color="light"></ion-input> 
       </ion-item>
       <br>
       <ion-item class="full-width-input">
         <ion-label position='floating' color="light">Contraseña</ion-label>
-        <ion-input type="password" formControlName="clave"  color="light"></ion-input> 
+        <ion-input type="password" formControlName="password"  color="light"></ion-input> 
       </ion-item>
       <br>
-      <ion-button [hidden]="ocultarVerificar"  color='danger' *ngIf="logeando"  (click)="Entrar()">Entrar</ion-button>
-      <ion-button [hidden]="!ocultarVerificar" color="danger" *ngIf="logeando"  (click)="Entrar()"><i class="fa fa-spinner fa-spin"></i> Ingresando</ion-button>
+      <ion-button [hidden]="ocultarVerificar"  color='danger' *ngIf="logeando"  (click)="login()">Entrar</ion-button>
+      <ion-button [hidden]="!ocultarVerificar" color="danger" *ngIf="logeando"  (click)="login()"><i class="fa fa-spinner fa-spin"></i> Ingresando</ion-button>
       
     </form>
   </ion-toolbar>

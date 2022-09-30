@@ -7,7 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-// import { firebaseConfig } from '../environments/environment';
+import { firebaseConfig } from '../environments/environment';
 
 // // Firebase App (the core Firebase SDK) is always required and must be listed first
 // import * as firebase from "firebase/app";
@@ -23,6 +23,12 @@ import { AppComponent } from './app.component';
 // import { AngularFireStorageModule } from '@angular/fire/storage'
 // import { AngularFireDatabaseModule } from '@angular/fire/database'
 
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideStorage, getStorage } from '@angular/fire/storage';
+
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -34,6 +40,10 @@ import { AppComponent } from './app.component';
     // AngularFireStorageModule,
     // AngularFireDatabaseModule,
     // AngularFirestoreModule
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+		provideAuth(() => getAuth()),
+		provideFirestore(() => getFirestore()),
+		provideStorage(() => getStorage())
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
